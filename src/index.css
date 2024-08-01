@@ -7,7 +7,53 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+ul {
+  list-style: none;
+}
+
+nav ul {
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+}
+
+.statblock {
+  margin: 5px;
+  background-color: #6BACDB;
+  padding: 5px;
+  box-shadow: 0px 0px 10px;
+  border-radius: 15px;
+  height: 90%;
+}
+
+.statblock li {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 5px;
+}
+
+.grid-combat-container {
+  display: grid;
+  grid-template-areas:
+    'log mob main main main kar ';
+  gap: 10px;
+  background-color: #55768B;
+  padding: 10px;
+}
+
+.log { grid-area: log; }
+.mob { grid-area: mob; }
+.action { grid-area: main; }
+.kar { grid-area: kar; }
+
+abbr {
+  display:flex;
+  width: 30%;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.end{
+  width:100%;
+  text-align:right;
 }
