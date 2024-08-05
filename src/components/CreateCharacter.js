@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { initializeCharacter } from "../features/Character/CharacterSlice";
-import { initializeMonster } from "../features/Monster/MonsterSlice";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../app/routes";
 
@@ -29,16 +28,6 @@ export default function CreateCharacter() {
             attributePoints: 5
         };
         dispatch(initializeCharacter(initialCharacterState));
-
-        const initialMobState = {
-            name: 'Alfred',
-            currentLevel: 1,
-            statDistribution: 0,
-            hitpoints: 5,
-            attack: 1,
-            defense: 1,
-        }
-        dispatch(initializeMonster(initialMobState));
         
         navigate(ROUTES.adventureRoute());
     };

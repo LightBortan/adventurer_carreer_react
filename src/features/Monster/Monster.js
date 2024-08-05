@@ -10,7 +10,7 @@ export default function Monster() {
             <ul className="Monster statblock">
                     <li>Name: <span>{monster.name}</span></li>
                     <li>Level: <span>{monster.currentLevel}</span></li>
-                    <li>Healthpoints: <span className="end">{monster.hitpoints}</span>
+                    <li>Healthpoints: <span className="end">{Math.ceil(monster.hitpoints)}</span>
                     </li>
                     <li>Attack: <span className="end">{monster.attack}</span></li>
                     <li>Defense: <span className="end">{monster.defense}</span></li>

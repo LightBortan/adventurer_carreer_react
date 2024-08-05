@@ -27,16 +27,15 @@ export default function Character() {
 
     return (
         <div className="kar">
-            {character && character.name && (
                 <ul className="Character statblock">
                     <li>Name: <span>{character.name}</span></li>
                     <li>Level: <span>{character.currentLevel}</span></li>
-                    <li>EXP: <span>{character.currentXp}</span></li>
+                    <li>EXP: <span>{Math.ceil(character.currentXp)}/{character.currentLevel*10}</span></li>
                     <li>Attribute Points: <span>{character.attributePoints}</span></li>
                     <li>Healthpoints: <abbr>{character.attributePoints > 0 && (
                                 <button onClick={handleHealthIncrease}>+</button>
                             )}
-                            <span className="end">{character.currentHitpoints}/{character.maxHitpoints}</span></abbr>
+                            <span className="end">{Math.ceil(character.currentHitpoints)}/{character.maxHitpoints}</span></abbr>
                     </li>
                     <li>Attack: <abbr>{character.attributePoints > 0 && (
                                 <button onClick={handleAttackIncrease}>+</button>
@@ -48,7 +47,6 @@ export default function Character() {
                             <span className="end">{character.defense}</span></abbr></li>
                     <li>Defend Power: <span>{character.defendpower}</span></li>
                 </ul>
-            )}
         </div>
     )
 }

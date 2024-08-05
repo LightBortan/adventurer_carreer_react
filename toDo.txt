@@ -1,3 +1,4 @@
-1. combat system
- -add xp already done just give mob level as value
-2. building random mobs
+-log
+-sprites
+-background images
+-styling

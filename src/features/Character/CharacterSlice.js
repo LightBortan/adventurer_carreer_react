@@ -39,7 +39,7 @@ const characterSlice = createSlice({
             }
         },
         addXp : (state, action) => {
-            const { xp } = ((action.payload*5)/state.currentLevel);
+            const xp = ((parseInt(action.payload)*5)/state.currentLevel);
             state.currentXp += xp;
             if (state.currentXp >= (state.currentLevel*10)) {
                 state.attributePoints += 5;
@@ -49,11 +49,18 @@ const characterSlice = createSlice({
         },
         rest: (state) => {
             state.currentHitpoints = state.maxHitpoints;
+        },
+        takeDamage: (state, action) => {
+            const damage = parseFloat(action.payload)/ Math.max(1,state.defense+state.defendpower);
+            state.currentHitpoints -= damage;
+        },
+        changeDefendPower: (state, action) => {
+            state.defendpower += action.payload;
         }
     }
 });
 
-export const { initializeCharacter, increaseHealth, increaseAttack, increaseDefense, rest, addXp } = characterSlice.actions;
+export const { initializeCharacter, increaseHealth, increaseAttack, increaseDefense, rest, addXp, takeDamage, changeDefendPower } = characterSlice.actions;
 export const selectCharacter = (state) => state.character;
 
 export default characterSlice.reducer;

@@ -11,16 +11,28 @@ ul {
   list-style: none;
 }
 
+nav {
+  background-color: aquamarine;
+  padding: 15px 0px;
+}
+
 nav ul {
   display: flex;
   justify-content: space-around;
   list-style: none;
 }
 
+.actionButton {
+  background-color: lightblue;
+  border-color: lightblue;
+  margin: 2px;
+  width: 100%;
+}
+
 .statblock {
   margin: 5px;
   background-color: #6BACDB;
-  padding: 5px;
+  padding: 8px 10px;
   box-shadow: 0px 0px 10px;
   border-radius: 15px;
   height: 90%;
@@ -32,19 +44,55 @@ nav ul {
   padding-bottom: 5px;
 }
 
+
 .grid-combat-container {
   display: grid;
   grid-template-areas:
-    'log mob main main main kar ';
+    'log log mob main main kar';
   gap: 10px;
   background-color: #55768B;
   padding: 10px;
+  align-items: center;
 }
 
-.log { grid-area: log; }
+.Adventure-grid-container {
+  display: grid;
+  grid-template-areas: 
+    'log log buttons kar';
+  background-color: #55768B;
+  gap: 10px;
+  padding: 10px;
+  align-items: center;
+}
+
+.buttonbox{
+  background-color: aqua;
+  grid-area: 'buttons';
+  margin: 5px;
+  padding: 8px 10px;
+  box-shadow: 0px 0px 10px;
+  border-radius: 15px;
+}
+.log { 
+  grid-area: log; 
+  background-color: aqua;
+  padding: 8px 10px;
+  box-shadow: 0px 0px 10px;
+  border-radius: 15px;
+  height: 80%;
+}
 .mob { grid-area: mob; }
-.action { grid-area: main; }
-.kar { grid-area: kar; }
+.main { 
+  grid-area: main;
+  background-color: aqua;
+  padding: 8px 10px;
+  box-shadow: 0px 0px 10px;
+  border-radius: 15px;
+  height: 80%;
+}
+.Character { 
+  grid-area: kar; 
+}
 
 abbr {
   display:flex;
