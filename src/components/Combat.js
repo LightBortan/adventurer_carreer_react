@@ -23,12 +23,6 @@ export default function Combat() {
         setIsCharacterUpdated(true);
     },[dispatch, monster.attack])
 
-    const endTurn = useCallback(() => {
-        if (character.defendpower > 0) {
-            dispatch(changeDefendPower(-1));
-        }
-    }, [character.defendpower, dispatch])
-
     const endCombat = useCallback(() => {
         navigate(ROUTES.adventureRoute());
     }, [navigate])
@@ -41,7 +35,6 @@ export default function Combat() {
     const handleDefend = () => {
         dispatch(changeDefendPower(3));
         mobTurn();
-        endTurn();
     }
 
     const handleFlee = () => {
@@ -56,24 +49,25 @@ export default function Combat() {
         if (isCharacterUpdated) {
             if (character.currentHitpoints <= 0){
                 characterDies()
+            } else {
+                dispatch(changeDefendPower(-1))
             }
             setIsCharacterUpdated(false);
         }
         
-    }, [isCharacterUpdated, character.currentHitpoints, characterDies]);
+    }, [isCharacterUpdated, character.currentHitpoints, characterDies, dispatch]);
 
     useEffect(() => {
         if (isMonsterUpdated) {
             if (monster.hitpoints > 0){
                 mobTurn();
-                endTurn();
             }  else {
                 dispatch(addXp(monster.currentLevel));
                 endCombat();
             }
             setIsMonsterUpdated(false);  
         }      
-    }, [isMonsterUpdated, monster.hitpoints, monster.attack, monster.currentLevel, dispatch, endCombat, mobTurn , endTurn]);
+    }, [isMonsterUpdated, monster.hitpoints, monster.attack, monster.currentLevel, dispatch, endCombat, mobTurn]);
 
 
     return(
