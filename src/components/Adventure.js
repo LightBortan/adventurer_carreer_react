@@ -9,7 +9,7 @@ import { initializeMonster } from "../features/Monster/MonsterSlice";
 import ROUTES from "../app/routes";
 import { addLog } from "../features/Log/LogSlice";
 
-import villageImage from '../Images/Backgrounds/village.jpg'
+import villageImage from '../Images/Backgrounds/Village.jpg'
 
 
 export default function Adventure() {
