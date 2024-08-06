@@ -57,11 +57,13 @@ export default function Combat() {
     useEffect(() => {
         if (isCharacterUpdated) {
             setIsCharacterUpdated(false);
-            if (character.currentHitpoints <= 0) {
-                characterDies();
-            } else if (character.defendpower > 0) {
-                dispatch(changeDefendPower(-1));
-            }
+            setTimeout(() =>{
+                if (character.currentHitpoints <= 0) {
+                    characterDies();
+                } else if (character.defendpower > 0) {
+                    dispatch(changeDefendPower(-1));
+                }
+            }, 5)
         }
     }, [isCharacterUpdated, character.currentHitpoints, character.defendpower, dispatch, characterDies]);
 
