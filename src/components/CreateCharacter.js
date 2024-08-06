@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { initializeCharacter } from "../features/Character/CharacterSlice";
+import { initializeLog } from "../features/Log/LogSlice";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../app/routes";
 
@@ -16,6 +17,12 @@ export default function CreateCharacter() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        
+        const initialLogState = {
+            logList: ['Welcome to your carreer']
+        };
+        dispatch(initializeLog(initialLogState));
+
         const initialCharacterState = {
             name,
             currentLevel: 1,

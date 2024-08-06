@@ -1,10 +1,12 @@
 import React from "react";
 import Character from "../features/Character/Character";
+import Log from "../features/Log/Log";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { rest, selectCharacter } from "../features/Character/CharacterSlice";
 import { initializeMonster } from "../features/Monster/MonsterSlice";
 import ROUTES from "../app/routes";
+import { addLog } from "../features/Log/LogSlice";
 
 export default function Adventure() {
     const navigate = useNavigate();
@@ -13,6 +15,7 @@ export default function Adventure() {
 
     const createMob = () => {
         const name = 'Goblin'
+        dispatch(addLog(`You encountered a ${name}`))
         let level = Math.round(Math.random()*character.currentLevel);
         if (level < 1){
             level = 1;
@@ -52,18 +55,19 @@ export default function Adventure() {
 
     const handleCombat = () => {
         const initialMobState = createMob()
-        console.log(initialMobState)
         dispatch(initializeMonster(initialMobState));
 
         navigate(ROUTES.combatRoute())
     }
 
     const handleRest = () => {
+        dispatch(addLog("You rest to full health"))
         dispatch(rest());
     }
 
     return(
         <section className="Adventure-grid-container">
+            <Log />
             <div className="buttonbox">
                 <button className="actionButton" onClick={handleCombat}>Combat</button>
                 <button className="actionButton" onClick={handleRest}>Rest</button>

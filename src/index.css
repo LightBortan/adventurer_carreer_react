@@ -58,7 +58,7 @@ nav ul {
 .Adventure-grid-container {
   display: grid;
   grid-template-areas: 
-    'log log buttons kar';
+    'log buttons kar';
   background-color: #55768B;
   gap: 10px;
   padding: 10px;
@@ -72,6 +72,7 @@ nav ul {
   padding: 8px 10px;
   box-shadow: 0px 0px 10px;
   border-radius: 15px;
+
 }
 .log { 
   grid-area: log; 
@@ -79,7 +80,8 @@ nav ul {
   padding: 8px 10px;
   box-shadow: 0px 0px 10px;
   border-radius: 15px;
-  height: 80%;
+  min-height: 200px;
+  max-height: 200px;
 }
 .mob { grid-area: mob; }
 .main { 
@@ -92,6 +94,15 @@ nav ul {
 }
 .Character { 
   grid-area: kar; 
+}
+
+.log button {
+  float: right;
+}
+
+.log ul{
+  display: flex;
+  flex-flow: column wrap;
 }
 
 abbr {

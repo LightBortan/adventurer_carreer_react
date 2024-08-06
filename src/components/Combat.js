@@ -1,43 +1,52 @@
-import React, {useEffect, useState, useCallback} from "react";
+import React, { useState, useCallback, useEffect} from "react";
 import Character from "../features/Character/Character";
 import Monster from "../features/Monster/Monster";
+import Log from "../features/Log/Log";
 import { useSelector } from "react-redux";
-import { addXp, changeDefendPower, selectCharacter, takeDamage } from "../features/Character/CharacterSlice";
+import { addXp, changeDefendPower, selectCharacter, takeDamage, setDefendPower } from "../features/Character/CharacterSlice";
 import { selectMonster, monsterTakeDamage } from "../features/Monster/MonsterSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../app/routes";
+import { addLog } from "../features/Log/LogSlice";
 
 
 export default function Combat() {
     const character = useSelector(selectCharacter);
     const monster = useSelector(selectMonster);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [isMonsterUpdated, setIsMonsterUpdated] = useState(false);
+    const [isMonsterUpdate, setIsMonsterUpdate ] = useState(false)
     const [isCharacterUpdated, setIsCharacterUpdated] = useState(false);
 
     const mobTurn = useCallback(() => {
         dispatch(takeDamage(monster.attack));
+        const damage = monster.attack / (character.defense + character.defendpower);
+        dispatch(addLog(`You take ${+damage.toFixed(2)} damage`));
         setIsCharacterUpdated(true);
-    },[dispatch, monster.attack])
+    }, [dispatch, monster.attack, character.defense, character.defendpower]);
 
     const endCombat = useCallback(() => {
+        dispatch(setDefendPower(0));
         navigate(ROUTES.adventureRoute());
-    }, [navigate])
+    }, [dispatch, navigate])
 
     const handleAttack =() => {
         dispatch(monsterTakeDamage(character.attack));
-        setIsMonsterUpdated(true);
+        const damage = character.attack/monster.defense;
+        dispatch(addLog(`You deal ${+damage.toFixed(2)} damage.`))
+        setIsMonsterUpdate(true);
     }
 
     const handleDefend = () => {
         dispatch(changeDefendPower(3));
-        mobTurn();
+        setIsMonsterUpdate(true);
     }
 
     const handleFlee = () => {
+        dispatch(addLog(`You flee from the ${monster.name}`))
         endCombat();
     }
 
@@ -47,32 +56,31 @@ export default function Combat() {
 
     useEffect(() => {
         if (isCharacterUpdated) {
-            if (character.currentHitpoints <= 0){
-                characterDies()
-            } else {
-                dispatch(changeDefendPower(-1))
-            }
             setIsCharacterUpdated(false);
+            if (character.currentHitpoints <= 0) {
+                characterDies();
+            } else if (character.defendpower > 0) {
+                dispatch(changeDefendPower(-1));
+            }
         }
-        
-    }, [isCharacterUpdated, character.currentHitpoints, characterDies, dispatch]);
+    }, [isCharacterUpdated, character.currentHitpoints, character.defendpower, dispatch, characterDies]);
 
     useEffect(() => {
-        if (isMonsterUpdated) {
-            if (monster.hitpoints > 0){
+        if (isMonsterUpdate) {
+            setIsMonsterUpdate(false);
+            if (monster.hitpoints > 0) {
                 mobTurn();
-            }  else {
+            } else {
+                dispatch(addLog(`You defeat the ${monster.name}`));
                 dispatch(addXp(monster.currentLevel));
                 endCombat();
             }
-            setIsMonsterUpdated(false);  
-        }      
-    }, [isMonsterUpdated, monster.hitpoints, monster.attack, monster.currentLevel, dispatch, endCombat, mobTurn]);
-
+        }
+    }, [isMonsterUpdate, monster.hitpoints, monster.name, monster.currentLevel, dispatch, endCombat, mobTurn]);
 
     return(
         <section className="grid-combat-container">
-            <h1 className="log">Log</h1>
+            <Log />
             <Monster />
             <p className="main">
                 <button className="actionButton" onClick={handleAttack}>Attack</button>

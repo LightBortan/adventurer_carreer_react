@@ -56,11 +56,14 @@ const characterSlice = createSlice({
         },
         changeDefendPower: (state, action) => {
             state.defendpower += action.payload;
-        }
+        },
+        setDefendPower: (state, action) => {
+            state.defendpower = action.payload
+        },
     }
 });
 
-export const { initializeCharacter, increaseHealth, increaseAttack, increaseDefense, rest, addXp, takeDamage, changeDefendPower } = characterSlice.actions;
+export const { initializeCharacter, increaseHealth, increaseAttack, increaseDefense, rest, addXp, takeDamage, changeDefendPower, setDefendPower } = characterSlice.actions;
 export const selectCharacter = (state) => state.character;
 
 export default characterSlice.reducer;
