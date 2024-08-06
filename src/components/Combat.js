@@ -74,13 +74,15 @@ export default function Combat() {
     useEffect(() => {
         if (isMonsterUpdate) {
             setIsMonsterUpdate(false);
-            if (monster.hitpoints > 0) {
-                mobTurn();
-            } else {
-                dispatch(addLog(`You defeat the ${monster.name}`));
-                dispatch(addXp(monster.currentLevel));
-                endCombat();
-            }
+            setTimeout(() => {
+                if (monster.hitpoints > 0) {
+                    mobTurn();
+                } else {
+                    dispatch(addLog(`You defeat the ${monster.name}`));
+                    dispatch(addXp(monster.currentLevel));
+                    endCombat();
+                }
+            }, 5)
         }
     }, [isMonsterUpdate, monster.hitpoints, monster.name, monster.currentLevel, dispatch, endCombat, mobTurn]);
 
