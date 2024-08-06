@@ -1,9 +1,6 @@
 ------------features to add----------
 
--sprites
--background images
 -styling
 
 --------------bugs------------------
 
-- defend power returns to 0 after every turn needs to decrement by 1.

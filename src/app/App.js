@@ -17,7 +17,7 @@ function App() {
         <Route path='/' element={<AppLayout/>}>
           <Route index element= {<Home/>}/>
           <Route path='createCharacter' element ={<CreateCharacter />}/>
-          <Route  path='adventure' element={<Adventure />}/>
+          <Route path='adventure' element={<Adventure />}/>
           <Route path='combat' element={<Combat/>}/>        
         </Route>
       </Routes>

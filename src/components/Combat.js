@@ -9,6 +9,10 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../app/routes";
 import { addLog } from "../features/Log/LogSlice";
+import Background from "./Background";
+
+import forestImage from '../Images/Backgrounds/forest.jpeg'
+import monsterSprite from '../Images/Sprites/Goblin.png'
 
 
 export default function Combat() {
@@ -81,17 +85,20 @@ export default function Combat() {
     }, [isMonsterUpdate, monster.hitpoints, monster.name, monster.currentLevel, dispatch, endCombat, mobTurn]);
 
     return(
-        <section className="grid-combat-container">
-            <Log />
-            <Monster />
-            <p className="main">
-                <button className="actionButton" onClick={handleAttack}>Attack</button>
-                <br />
-                <button className="actionButton" onClick={handleDefend}>Defend</button>
-                <br />
-                <button className="actionButton" onClick={handleFlee}>Flee</button>
-            </p>
-            <Character/>
-        </section>
+        <div>
+            <Background backgroundImage={forestImage} monsterImage={monsterSprite} />
+            <section className="grid-combat-container">
+                <Log />
+                <Monster />
+                <p className="main">
+                    <button className="actionButton" onClick={handleAttack}>Attack</button>
+                    <br />
+                    <button className="actionButton" onClick={handleDefend}>Defend</button>
+                    <br />
+                    <button className="actionButton" onClick={handleFlee}>Flee</button>
+                </p>
+                <Character/>
+            </section>
+        </div>
     )
 }

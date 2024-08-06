@@ -1,12 +1,16 @@
 import React from "react";
 import Character from "../features/Character/Character";
 import Log from "../features/Log/Log";
+import Background from "./Background";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { rest, selectCharacter } from "../features/Character/CharacterSlice";
 import { initializeMonster } from "../features/Monster/MonsterSlice";
 import ROUTES from "../app/routes";
 import { addLog } from "../features/Log/LogSlice";
+
+import villageImage from '../Images/Backgrounds/village.jpg'
+
 
 export default function Adventure() {
     const navigate = useNavigate();
@@ -66,13 +70,16 @@ export default function Adventure() {
     }
 
     return(
-        <section className="Adventure-grid-container">
-            <Log />
-            <div className="buttonbox">
-                <button className="actionButton" onClick={handleCombat}>Combat</button>
-                <button className="actionButton" onClick={handleRest}>Rest</button>
-            </div>
-            <Character />
-        </section>
+        <div>
+            <Background backgroundImage={villageImage}/>
+            <section className="Adventure-grid-container">
+                <Log />
+                <div className="buttonbox">
+                    <button className="actionButton" onClick={handleCombat}>Combat</button>
+                    <button className="actionButton" onClick={handleRest}>Rest</button>
+                </div>
+                <Character />
+            </section>
+        </div>
     )
 }
