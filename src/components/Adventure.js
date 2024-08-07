@@ -5,9 +5,10 @@ import Background from "./Background";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { rest, selectCharacter } from "../features/Character/CharacterSlice";
-import { initializeMonster } from "../features/Monster/MonsterSlice";
+import { initializeMonster, setMonsterList } from "../features/Monster/MonsterSlice";
 import ROUTES from "../app/routes";
 import { addLog } from "../features/Log/LogSlice";
+import CreateMonster from "../app/functions/CreateMonster";
 
 import villageImage from '../Images/Backgrounds/Village.jpg'
 
@@ -17,50 +18,12 @@ export default function Adventure() {
     const dispatch = useDispatch();
     const character = useSelector(selectCharacter)
 
-    const createMob = () => {
-        const name = 'Goblin'
-        dispatch(addLog(`You encountered a ${name}`))
-        let level = Math.round(Math.random()*character.currentLevel);
-        if (level < 1){
-            level = 1;
-        }
-        let points = level*5
-        let hitpoints = 5
-        let attack = 1
-        let defense = 1
-        while (points) {
-            let roll = Math.floor(Math.random()*3)
-            switch (roll) {
-                case 0:
-                    hitpoints += 5 ;
-                    points -= 1;
-                    break;
-                case 1:
-                    attack += 1;
-                    points -= 1;
-                    break;
-                case 2:
-                    defense += 1;
-                    points -= 1;
-                    break;
-                default: 
-                    console.log("Rolled a impossible number")
-            }
-        }
-        return {
-            name: name,
-            currentLevel: level,
-            hitpoints: hitpoints,
-            attack: attack,
-            defense: defense
-        }
-    }
-
-
     const handleCombat = () => {
-        const initialMobState = createMob()
+        const monsterList = ['Goblin', 'Goblina']
+        dispatch(setMonsterList(monsterList));
+        const initialMobState = CreateMonster(monsterList[0], character)
+        dispatch(addLog(`You encountered a ${monsterList[0]}`))
         dispatch(initializeMonster(initialMobState));
-
         navigate(ROUTES.combatRoute())
     }
 
