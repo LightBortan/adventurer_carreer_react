@@ -1,11 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    name: '',
-    currentLevel: 0,
-    hitpoints: 0,
-    attack: 0,
-    defense: 0,
+    currentMonster: null,
+    monsterList: [],
 };
 
 const monsterSlice = createSlice({
@@ -13,16 +10,23 @@ const monsterSlice = createSlice({
     initialState,
     reducers: {
         initializeMonster: (state, action) => {
-            return {...state, ...action.payload}
+            state.currentMonster = action.payload
+        },
+        setMonsterList: (state, action) => {
+            state.monsterList = action.payload;
         },
         monsterTakeDamage: (state, action) => {
-            const damage  = (parseInt(action.payload)/state.defense);
-            state.hitpoints -= damage
-        }
+            if (state.currentMonster) {
+                state.currentMonster = {
+                    ...state.currentMonster,
+                    hitpoints: state.currentMonster.hitpoints - (parseInt(action.payload)/state.currentMonster.defense)
+                };
+            }
+        },
     }
 })
 
-export const { initializeMonster, monsterTakeDamage } = monsterSlice.actions;
-export const selectMonster = (state) => state.monster;
-
+export const { initializeMonster, setMonsterList ,monsterTakeDamage } = monsterSlice.actions;
+export const selectMonster = (state) => state.monster.currentMonster;
+export const selectMonsterList = (state) => state.monster.monsterList;
 export default monsterSlice.reducer;

@@ -4,7 +4,7 @@ import Monster from "../features/Monster/Monster";
 import Log from "../features/Log/Log";
 import { useSelector } from "react-redux";
 import { addXp, changeDefendPower, selectCharacter, takeDamage, setDefendPower } from "../features/Character/CharacterSlice";
-import { selectMonster, monsterTakeDamage } from "../features/Monster/MonsterSlice";
+import { selectMonster, monsterTakeDamage, selectMonsterList, setMonsterList, initializeMonster } from "../features/Monster/MonsterSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../app/routes";
@@ -13,15 +13,18 @@ import Background from "./Background";
 
 import forestImage from '../Images/Backgrounds/forest.jpeg'
 import monsterSprite from '../Images/Sprites/Goblin.png'
+import CreateMonster from "../app/functions/CreateMonster";
 
 
 export default function Combat() {
     const character = useSelector(selectCharacter);
     const monster = useSelector(selectMonster);
+    const monsterList = useSelector(selectMonsterList);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const [globalXp, setGlobalXp] = useState(0)
     const [isMonsterUpdate, setIsMonsterUpdate ] = useState(false)
     const [isCharacterUpdated, setIsCharacterUpdated] = useState(false);
 
@@ -79,12 +82,23 @@ export default function Combat() {
                     mobTurn();
                 } else {
                     dispatch(addLog(`You defeat the ${monster.name}`));
-                    dispatch(addXp(monster.currentLevel));
-                    endCombat();
+                    const currentGlobalXp = globalXp
+                    setGlobalXp(currentGlobalXp + (monster.currentLevel*5))
+                    const updatedMonsterList = monsterList.slice(1);
+                    dispatch(setMonsterList(updatedMonsterList));
+                    console.log(updatedMonsterList)
+                    if (updatedMonsterList.length > 0){
+                        dispatch(addLog(`You encountered a ${monsterList[0]}`))
+                        const initialMobState = CreateMonster(updatedMonsterList[0], character)
+                        dispatch(initializeMonster(initialMobState));
+                    } else {
+                        dispatch(addXp(globalXp));
+                        endCombat();
+                    }
                 }
             }, 5)
         }
-    }, [isMonsterUpdate, monster.hitpoints, monster.name, monster.currentLevel, dispatch, endCombat, mobTurn]);
+    }, [isMonsterUpdate, monster.hitpoints, monster.name, monster.currentLevel, dispatch, endCombat, mobTurn, monsterList, character, globalXp]);
 
     return(
         <div>

@@ -39,7 +39,7 @@ const characterSlice = createSlice({
             }
         },
         addXp : (state, action) => {
-            const xp = ((parseInt(action.payload)*5));
+            const xp = ((parseInt(action.payload)));
             state.currentXp += xp;
             if (state.currentXp >= (state.currentLevel*10)) {
                 state.attributePoints += 5;
