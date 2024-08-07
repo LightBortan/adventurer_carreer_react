@@ -24,7 +24,6 @@ export default function Combat() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [globalXp, setGlobalXp] = useState(0)
     const [isMonsterUpdate, setIsMonsterUpdate ] = useState(false)
     const [isCharacterUpdated, setIsCharacterUpdated] = useState(false);
 
@@ -82,8 +81,8 @@ export default function Combat() {
                     mobTurn();
                 } else {
                     dispatch(addLog(`You defeat the ${monster.name}`));
-                    const currentGlobalXp = globalXp
-                    setGlobalXp(currentGlobalXp + (monster.currentLevel*5))
+                    const xpGained = monster.currentLevel*5
+                    dispatch(addXp(xpGained))
                     const updatedMonsterList = monsterList.slice(1);
                     dispatch(setMonsterList(updatedMonsterList));
                     console.log(updatedMonsterList)
@@ -92,13 +91,12 @@ export default function Combat() {
                         const initialMobState = CreateMonster(updatedMonsterList[0], character)
                         dispatch(initializeMonster(initialMobState));
                     } else {
-                        dispatch(addXp(globalXp));
                         endCombat();
                     }
                 }
             }, 5)
         }
-    }, [isMonsterUpdate, monster.hitpoints, monster.name, monster.currentLevel, dispatch, endCombat, mobTurn, monsterList, character, globalXp]);
+    }, [isMonsterUpdate, monster.hitpoints, monster.name, monster.currentLevel, dispatch, endCombat, mobTurn, monsterList, character]);
 
     return(
         <div>

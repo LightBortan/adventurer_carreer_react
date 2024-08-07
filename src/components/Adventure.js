@@ -9,6 +9,7 @@ import { initializeMonster, setMonsterList } from "../features/Monster/MonsterSl
 import ROUTES from "../app/routes";
 import { addLog } from "../features/Log/LogSlice";
 import CreateMonster from "../app/functions/CreateMonster";
+import CreateEvents from "../app/functions/CreateEvents";
 
 import villageImage from '../Images/Backgrounds/Village.jpg'
 
@@ -19,10 +20,11 @@ export default function Adventure() {
     const character = useSelector(selectCharacter)
 
     const handleCombat = () => {
-        const monsterList = ['Goblin', 'Goblina']
+        const event = CreateEvents();
+        const monsterList = event.monsterlist;
         dispatch(setMonsterList(monsterList));
         const initialMobState = CreateMonster(monsterList[0], character)
-        dispatch(addLog(`You encountered a ${monsterList[0]}`))
+        dispatch(addLog(`You encountered ${monsterList.length} ${monsterList[0]}`))
         dispatch(initializeMonster(initialMobState));
         navigate(ROUTES.combatRoute())
     }
