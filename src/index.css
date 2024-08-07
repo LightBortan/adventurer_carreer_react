@@ -7,6 +7,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+h1 {
+  padding-top: 0px;
+}
+
 ul {
   list-style: none;
 }
@@ -134,4 +138,26 @@ abbr {
 .end{
   width:100%;
   text-align:right;
+}
+
+.Homepage{
+  border: 1px solid red;
+  padding-left: 30px;
+  padding-bottom: 30px;
+  background-color: aqua;
+}
+
+.Homepage a {
+  color: purple;
+  font-weight: bold;
+}
+
+.createCharacter {
+  border: 1px solid red;
+  padding: 30px;
+  background-color: aqua;
+}
+
+.createCharacter input{
+  margin-right:10px;
 }

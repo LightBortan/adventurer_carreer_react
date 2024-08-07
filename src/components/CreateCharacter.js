@@ -40,14 +40,11 @@ export default function CreateCharacter() {
     };
 
     return (
-        <div>
+        <div className="createCharacter">
+            <h1>Fill your Character's name in</h1> 
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label>
-                        Name:
-                        <input type="text" value={name} onChange={handleChange} />
-                    </label>
-                </div>
+                <label htmlFor="CharacterName">Name: </label>
+                <input type="text" id="CharacterName" value={name} onChange={handleChange} />
                 <button type="submit">Create Character</button>
             </form>
         </div>

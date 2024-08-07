@@ -1,5 +1,7 @@
 ------------features to add----------
 
+-create homepage
+-style character creation page
 -styling
 
 --------------bugs------------------
