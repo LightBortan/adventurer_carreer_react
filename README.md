@@ -21,9 +21,15 @@ Ensure you have the latest versions of:
 
 ### Installation
 
-1. Clone the repository:
+Clone the repository:
    ```bash
    git clone https://github.com/your-repo/adventurers-career.git
    cd adventurers-career
    npm install
 
+## Running the Game
+
+To start the development server, run:
+
+```bash
+npm start
