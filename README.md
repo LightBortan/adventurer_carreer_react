@@ -26,6 +26,7 @@ Clone the repository:
    git clone https://github.com/your-repo/adventurers-career.git
    cd adventurers-career
    npm install
+   ```
 
 ## Running the Game
 
@@ -33,3 +34,4 @@ To start the development server, run:
 
 ```bash
 npm start
+```
